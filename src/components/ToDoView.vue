@@ -24,7 +24,7 @@
           </button>
         </div>
         <ul>
-          <li v-for="todo in sortedTodos(priority)" :key="todo.id">
+          <li v-for="todo in timeSortedTodos(priority)" :key="todo.id">
             <div class="card">
               <h3>
                 <div class="header">
@@ -155,7 +155,7 @@ const sortByCreationTime = (priority: string) => {
   sortOrder.value[priority] = !sortOrder.value[priority]
 }
 
-const sortedTodos = (priority: string) => {
+const timeSortedTodos = (priority: string) => {
   return computed(() => {
     return todoStore.todos
       .filter((todo: Todo) => todo.priority === priority)
