@@ -35,7 +35,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '23.9.0'
+          node-version: '16'
 
       - name: Install dependencies
         run: npm install
@@ -55,3 +55,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          branch: gh-pages # Ensure deployment to gh-pages branch
