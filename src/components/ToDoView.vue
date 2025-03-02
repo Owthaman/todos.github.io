@@ -182,7 +182,7 @@ const sortedTodos = (priority: string) => {
   display: flex;
   justify-content: space-between;
   align-content: center;
-  align-items: center;
+  align-items: baseline;
 }
 
 .todo-card h3 small {
@@ -196,6 +196,8 @@ const sortedTodos = (priority: string) => {
 
 .todo-card h3 select.form-select {
   width: 100px;
+  margin-right: 0;
+  margin-top: 5px;
 }
 
 .todo-card h3 select.form-select.form-select--low {
