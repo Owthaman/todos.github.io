@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div class="todo-header">
-      <button @click="toggleDialog" class="add-todo__button">
+    <div class="header">
+      <button @click="toggleDialog" class="add-button">
         <font-awesome-icon :icon="faPlus" />
       </button>
     </div>
 
-    <dialog v-if="showDialog" :open="showDialog" class="add-todo__dialog">
-      <div class="add-todo">
+    <dialog v-if="showDialog" :open="showDialog" class="dialog">
+      <div class="form-container">
         <h2>{{ isEditing ? 'Edit todo' : 'Add a new todo' }}</h2>
-        <div class="add-todo__form">
+        <div class="form">
           <div class="input-group">
             <span class="input-group-text" id="addTodoTitle">Title</span>
             <input
@@ -40,7 +40,7 @@
               rows="3"
             ></textarea>
           </div>
-          <div class="add-todo__form_action_bar">
+          <div class="form-action-bar">
             <button @click="saveTodo">{{ isEditing ? 'Save' : 'Add Todo' }}</button>
             <button @click="toggleDialog">Close</button>
           </div>
@@ -121,7 +121,7 @@ function resetForm() {
 </script>
 
 <style scoped>
-.todo-header {
+.header {
   display: flex;
   justify-content: center;
   position: fixed;
@@ -133,9 +133,10 @@ function resetForm() {
   left: 0;
   right: 0;
   box-shadow: 0px -3px 4px #5534344f;
+  z-index: 1000;
 }
 
-.add-todo__button {
+.add-button {
   font-size: 40px;
   border: none;
   cursor: pointer;
@@ -146,26 +147,26 @@ function resetForm() {
   color: #fff;
 }
 
-.add-todo__button:hover,
-.add-todo__button:focus {
+.add-button:hover,
+.add-button:focus {
   transform: scale(1.05);
 }
 
-.add-todo__button:hover {
+.add-button:hover {
   transform: scale(1.1);
 }
 
-.add-todo__dialog {
+.dialog {
   border: none;
   padding: 0;
   background: none;
 }
 
-.add-todo__dialog::backdrop {
+.dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.add-todo__dialog[open] {
+.dialog[open] {
   display: flex;
   position: fixed;
   top: 0;
@@ -182,7 +183,7 @@ function resetForm() {
   height: 100%;
 }
 
-.add-todo {
+.form-container {
   border: 1px solid #ccc;
   background-color: #f1f1f1;
   padding: 1rem;
@@ -192,7 +193,7 @@ function resetForm() {
   margin: 0 auto;
 }
 
-.add-todo__form {
+.form {
   padding-top: 1rem;
   border-top: 1px solid #ccc;
   margin-top: 0.25rem;
@@ -203,29 +204,29 @@ function resetForm() {
   flex-direction: column;
 }
 
-.add-todo__form input {
+.form input {
   padding: 0.5rem;
   border: 1px solid #ccc;
   font-size: 1rem;
 }
 
-.add-todo__form select {
+.form select {
   font-size: 1rem;
 }
 
-.add-todo__form textarea {
+.form textarea {
   resize: none;
   height: 100px;
   margin-top: 0.5rem;
 }
 
-.add-todo__form_action_bar {
+.form-action-bar {
   display: flex;
   gap: 0.5rem;
   justify-content: flex-end;
 }
 
-.add-todo__form_action_bar button {
+.form-action-bar button {
   min-width: 100px;
   margin-top: 0.5rem;
   padding: 0.5rem 1rem;
@@ -235,7 +236,7 @@ function resetForm() {
   cursor: pointer;
 }
 
-.add-todo__form .input-group-text {
+.input-group-text {
   width: 100px;
 }
 </style>

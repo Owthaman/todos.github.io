@@ -1,12 +1,12 @@
 <template>
   <div class="todo">
     <AddToDoView :todo="selectedTodo" />
-    <div class="todo-columns">
+    <div class="columns">
       <div
-        class="todo-column"
+        class="column"
         v-for="priority in ['critical', 'high', 'medium', 'low']"
         :key="priority"
-        :class="`todo-column--${priority}`"
+        :class="`column--${priority}`"
       >
         <div class="action-bar">
           <button @click="removeAllTodos(priority)">
@@ -18,9 +18,9 @@
         </div>
         <ul>
           <li v-for="todo in sortedTodos(priority)" :key="todo.id">
-            <div class="todo-card">
+            <div class="card">
               <h3>
-                <div class="header-section">
+                <div class="header">
                   <s v-if="todo.completed">{{ todo.title }}</s>
                   <span v-else>{{ todo.title }}</span>
                   <small
@@ -165,13 +165,13 @@ const sortedTodos = (priority: string) => {
   color: #000;
 }
 
-.todo-card {
+.card {
   border-radius: 5px;
   box-shadow: 0 3px 4px #5534344f;
   overflow: hidden;
 }
 
-.todo-card h3 {
+.card h3 {
   margin: 0px 0 10px;
   font-size: 20px;
   font-weight: bold;
@@ -185,7 +185,7 @@ const sortedTodos = (priority: string) => {
   align-items: baseline;
 }
 
-.todo-card h3 small {
+.card h3 small {
   padding-top: 5px;
   display: block;
   font-size: 12px;
@@ -194,33 +194,33 @@ const sortedTodos = (priority: string) => {
   text-transform: lowercase;
 }
 
-.todo-card h3 select.form-select {
+.card h3 select.form-select {
   width: 100px;
   margin-right: 0;
   margin-top: 5px;
 }
 
-.todo-card h3 select.form-select.form-select--low {
+.card h3 select.form-select.form-select--low {
   background-color: #fff9cc;
   color: #555;
 }
 
-.todo-card h3 select.form-select.form-select--medium {
+.card h3 select.form-select.form-select--medium {
   background-color: #ffe6b3;
   color: #333;
 }
 
-.todo-card h3 select.form-select.form-select--high {
+.card h3 select.form-select.form-select--high {
   background-color: #ffcc99;
   color: #111;
 }
 
-.todo-card h3 select.form-select.form-select--critical {
+.card h3 select.form-select.form-select--critical {
   background-color: #ff9999;
   color: #333;
 }
 
-.todo-card p {
+.card p {
   font-size: 16px;
   padding: 5px 10px;
 }
@@ -230,7 +230,7 @@ select {
   margin-right: 10px;
 }
 
-.todo-columns {
+.columns {
   display: flex;
   align-items: stretch;
   gap: 10px;
@@ -238,19 +238,19 @@ select {
   padding-bottom: 100px;
 }
 
-.todo-column {
+.column {
   border-radius: 10px;
   flex: 1;
   min-height: 100vh;
   background-color: #f9f9f9;
 }
 
-.todo-column h2 {
+.column h2 {
   padding: 10px;
   text-align: center;
 }
 
-.todo-column--low {
+.column--low {
   color: #555;
   border-right: 2px solid #e4e4e4;
   border-left: 2px solid #e4e4e4;
@@ -258,7 +258,7 @@ select {
   border-top: 5px solid #fff9cc;
 }
 
-.todo-column--medium {
+.column--medium {
   color: #333;
   border-right: 2px solid #e4e4e4;
   border-left: 2px solid #e4e4e4;
@@ -266,7 +266,7 @@ select {
   border-top: 5px solid #ffe6b3;
 }
 
-.todo-column--high {
+.column--high {
   color: #111;
   border-right: 2px solid #e4e4e4;
   border-left: 2px solid #e4e4e4;
@@ -274,7 +274,7 @@ select {
   border-top: 5px solid #ffcc99;
 }
 
-.todo-column--critical {
+.column--critical {
   color: #fff;
   border-right: 2px solid #e4e4e4;
   border-left: 2px solid #e4e4e4;
@@ -295,7 +295,7 @@ select {
   display: flex;
 }
 
-.todo-card .action-bar {
+.card .action-bar {
   border-radius: 0px 0px 5px 5px;
 }
 
