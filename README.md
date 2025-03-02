@@ -1,4 +1,4 @@
-# To-Do project
+# To-Do
 
 <img width="1425" alt="Screenshot 2025-03-02 at 6 28 35 AM" src="https://github.com/user-attachments/assets/443a47dc-8d9a-4ec8-9f10-b30ba6396c7c" />
 
