@@ -1,5 +1,11 @@
 <template>
   <div class="todo">
+    <div class="tabs">
+      <button @click="showColumn('critical')" class="tabs-button critical">Critical</button>
+      <button @click="showColumn('high')" class="tabs-button high">High</button>
+      <button @click="showColumn('medium')" class="tabs-button medium">Medium</button>
+      <button @click="showColumn('low')" class="tabs-button low">Low</button>
+    </div>
     <AddToDoView :todo="selectedTodo" />
     <div class="columns">
       <div
@@ -7,6 +13,7 @@
         v-for="priority in ['critical', 'high', 'medium', 'low']"
         :key="priority"
         :class="`column--${priority}`"
+        v-show="isColumnVisible(priority)"
       >
         <div class="action-bar">
           <button @click="removeAllTodos(priority)">
@@ -98,6 +105,28 @@ const sortOrder = ref<{ [key: string]: boolean }>({
   low: false,
 })
 
+const visibleColumns = ref<{ [key: string]: boolean }>({
+  critical: true,
+  high: false,
+  medium: false,
+  low: false,
+})
+
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const screenCheck = () => {
+    if (window.innerWidth < 769) {
+      visibleColumns.value = { critical: true, high: false, medium: false, low: false }
+    } else {
+      visibleColumns.value = { critical: true, high: true, medium: true, low: true }
+    }
+  }
+
+  screenCheck()
+  window.addEventListener('resize', screenCheck)
+})
+
 const removeTodo = (id: number) => {
   todoStore.removeTodo(id)
 }
@@ -138,6 +167,17 @@ const sortedTodos = (priority: string) => {
         return sortOrder.value[priority] ? timeA - timeB : timeB - timeA
       })
   }).value
+}
+
+const showColumn = (priority: string) => {
+  for (const key in visibleColumns.value) {
+    visibleColumns.value[key] = false
+  }
+  visibleColumns.value[priority] = true
+}
+
+const isColumnVisible = (priority: string) => {
+  return visibleColumns.value[priority]
 }
 </script>
 
@@ -304,5 +344,86 @@ select {
   background-color: transparent;
   cursor: pointer;
   color: #525252;
+}
+
+.todo-nav {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  bottom: 0;
+  padding: 10px;
+  border-top: 3px solid #ccc;
+  left: 0;
+  right: 0;
+  box-shadow: 0px -3px 4px #5534344f;
+  z-index: 1000;
+  gap: 1rem;
+  align-content: space-between;
+}
+
+.add-button {
+  font-size: 40px;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+  background: #3aaa5f;
+  color: #fff;
+}
+
+.add-button:hover,
+.add-button:focus {
+  transform: scale(1.05);
+}
+
+.add-button:hover {
+  transform: scale(1.1);
+}
+
+.tabs {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .columns {
+    padding-bottom: 130px;
+  }
+  .tabs {
+    display: flex;
+    gap: 0.5rem;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 70px;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0px -3px 4px #5534344f;
+    z-index: 1000;
+  }
+  .tabs-button {
+    font-size: 14px;
+    width: 25%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .tabs-button.critical {
+    background: #ff6666;
+    color: #fff;
+  }
+  .tabs-button.high {
+    background: #ffcc99;
+    color: #111;
+  }
+  .tabs-button.medium {
+    background: #ffe6b3;
+    color: #333;
+  }
+  .tabs-button.low {
+    background: #fff9cc;
+    color: #555;
+  }
 }
 </style>

@@ -239,4 +239,26 @@ function resetForm() {
 .input-group-text {
   width: 100px;
 }
+
+.tabs {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    gap: 1rem;
+    align-content: space-between;
+    flex-direction: column-reverse;
+    box-shadow: none;
+    border-top: none;
+  }
+
+  .add-button {
+    font-size: 30px;
+  }
+
+  .form-container {
+    width: 80%;
+  }
+}
 </style>
