@@ -89,7 +89,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useTodoStore } from '../stores/todo'
 import AddToDoView from '@/components/AddToDoView.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -111,8 +111,6 @@ const visibleColumns = ref<{ [key: string]: boolean }>({
   medium: false,
   low: false,
 })
-
-import { onMounted } from 'vue'
 
 onMounted(() => {
   const screenCheck = () => {
