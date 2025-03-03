@@ -64,6 +64,10 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits<{
+  (e: 'onAdd', priority: string): void
+}>()
+
 const todoStore = useTodoStore()
 const showDialog = ref(false)
 const isEditing = ref(false)
@@ -108,6 +112,7 @@ function saveTodo() {
       description: newTodoDescription.value,
     })
   }
+  emit('onAdd', newTodoPriority.value)
   resetForm()
   showDialog.value = false
 }

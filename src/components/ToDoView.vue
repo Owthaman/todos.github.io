@@ -6,7 +6,7 @@
       <button @click="showColumn('medium')" class="tabs-button medium">Medium</button>
       <button @click="showColumn('low')" class="tabs-button low">Low</button>
     </div>
-    <AddToDoView :todo="selectedTodo" />
+    <AddToDoView :todo="selectedTodo" @onAdd="showColumn" />
     <div class="columns">
       <div
         class="column"
@@ -25,62 +25,14 @@
         </div>
         <ul>
           <li v-for="todo in timeSortedTodos(priority)" :key="todo.id">
-            <div class="card">
-              <h3>
-                <div class="header">
-                  <s v-if="todo.completed">{{ todo.title }}</s>
-                  <span v-else>{{ todo.title }}</span>
-                  <small
-                    >{{ new Date(todo.id).toLocaleDateString() }}
-                    {{
-                      new Date(todo.id).toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: true,
-                      })
-                    }}</small
-                  >
-                </div>
-
-                <select
-                  class="form-select form-select-sm mr-0"
-                  :value="todo.priority"
-                  @change="changePriority(todo.id, ($event.target as HTMLSelectElement).value)"
-                  title="Change priority"
-                  :class="`form-select--${priority}`"
-                >
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
-                  <option value="critical">Critical</option>
-                </select>
-              </h3>
-              <p>
-                <s v-if="todo.completed">{{ todo.description }}</s
-                ><span v-else>{{ todo.description }}</span>
-              </p>
-              <div class="action-bar">
-                <div class="action-bar-left">
-                  <button @click="removeTodo(todo.id)">
-                    <font-awesome-icon :icon="faTrash" class="icon" />
-                  </button>
-                </div>
-                <div class="action-bar-right">
-                  <button @click="editTodo(todo)" title="Edit">
-                    <font-awesome-icon :icon="faPen" class="icon" />
-                  </button>
-                  <button @click="toggleCompleted(todo.id)">
-                    <font-awesome-icon
-                      v-if="todo.completed"
-                      :icon="faUndo"
-                      class="icon"
-                      title="Mark as undone"
-                    />
-                    <font-awesome-icon v-else :icon="faCheck" class="icon" title="Mark as done" />
-                  </button>
-                </div>
-              </div>
-            </div>
+            <ToDoCard
+              :todo="todo"
+              :priority="priority"
+              @remove="removeTodo"
+              @edit="editTodo"
+              @toggle="toggleCompleted"
+              @update-priority="changePriority"
+            />
           </li>
         </ul>
       </div>
@@ -92,8 +44,9 @@
 import { ref, computed, onMounted } from 'vue'
 import { useTodoStore } from '../stores/todo'
 import AddToDoView from '@/components/AddToDoView.vue'
+import ToDoCard from '@/components/ToDoCard.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUndo, faCheck, faTrash, faPen, faSort } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faSort } from '@fortawesome/free-solid-svg-icons'
 import type { Todo } from '../types/todo'
 
 const todoStore = useTodoStore()
@@ -136,10 +89,11 @@ const toggleCompleted = (id: number) => {
   }
 }
 
-const changePriority = (id: number, newPriority: string) => {
-  const todo = todoStore.todos.find((todo: Todo) => todo.id === id)
+const changePriority = (payload: { id: number; priority: string }) => {
+  const todo = todoStore.todos.find((todo: Todo) => todo.id === payload.id)
   if (todo) {
-    todo.priority = newPriority
+    todo.priority = payload.priority
+    showColumn(payload.priority)
   }
 }
 
