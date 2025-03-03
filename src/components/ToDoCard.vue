@@ -118,8 +118,8 @@ const changePriority = (event: Event) => {
 }
 
 .card h3 select.form-select.form-select--low {
-  background-color: #fff9cc;
-  color: #555;
+  background-color: #d4edda;
+  color: #155724;
 }
 
 .card h3 select.form-select.form-select--medium {

@@ -1,10 +1,34 @@
 <template>
   <div class="todo">
     <div class="tabs">
-      <button @click="showColumn('critical')" class="tabs-button critical">Critical</button>
-      <button @click="showColumn('high')" class="tabs-button high">High</button>
-      <button @click="showColumn('medium')" class="tabs-button medium">Medium</button>
-      <button @click="showColumn('low')" class="tabs-button low">Low</button>
+      <button
+        @click="showColumn('critical')"
+        class="tabs-button critical"
+        :class="{ 'tabs-button--active': visibleColumns.critical }"
+      >
+        Critical
+      </button>
+      <button
+        @click="showColumn('high')"
+        class="tabs-button high"
+        :class="{ 'tabs-button--active': visibleColumns.high }"
+      >
+        High
+      </button>
+      <button
+        @click="showColumn('medium')"
+        class="tabs-button medium"
+        :class="{ 'tabs-button--active': visibleColumns.medium }"
+      >
+        Medium
+      </button>
+      <button
+        @click="showColumn('low')"
+        class="tabs-button low"
+        :class="{ 'tabs-button--active': visibleColumns.low }"
+      >
+        Low
+      </button>
     </div>
     <AddToDoView :todo="selectedTodo" @onAdd="showColumn" />
     <div class="columns">
@@ -185,11 +209,11 @@ select {
 }
 
 .column--low {
-  color: #555;
+  color: #155724;
   border-right: 2px solid #e4e4e4;
   border-left: 2px solid #e4e4e4;
   border-bottom: 2px solid #e4e4e4;
-  border-top: 5px solid #fff9cc;
+  border-top: 5px solid #d4edda;
 }
 
 .column--medium {
@@ -296,7 +320,7 @@ select {
     font-size: 14px;
     width: 25%;
     padding: 0.5rem;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 5px;
   }
   .tabs-button.critical {
@@ -312,8 +336,35 @@ select {
     color: #333;
   }
   .tabs-button.low {
-    background: #fff9cc;
-    color: #555;
+    background: #d4edda;
+    color: #155724;
+  }
+  .tabs-button.tabs-button--active {
+    position: relative;
+  }
+  .tabs-button.tabs-button--active::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #ff6666;
+  }
+  .tabs-button.tabs-button--active.critical::before {
+    border-bottom: 10px solid #ff6666;
+  }
+  .tabs-button.tabs-button--active.high::before {
+    border-bottom: 10px solid #ffcc99;
+  }
+  .tabs-button.tabs-button--active.medium::before {
+    border-bottom: 10px solid #ffe6b3;
+  }
+  .tabs-button.tabs-button--active.low::before {
+    border-bottom: 10px solid #d4edda;
   }
 }
 </style>
