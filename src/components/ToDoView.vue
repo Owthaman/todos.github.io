@@ -157,65 +157,7 @@ const isColumnVisible = (priority: string) => {
   color: #000;
 }
 
-.card {
-  border-radius: 5px;
-  box-shadow: 0 3px 4px #5534344f;
-  overflow: hidden;
-}
-
-.card h3 {
-  margin: 0px 0 10px;
-  font-size: 20px;
-  font-weight: bold;
-  text-transform: capitalize;
-  padding: 5px 10px;
-  background-color: #dbdbdb;
-  color: #333;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  align-items: baseline;
-}
-
-.card h3 small {
-  padding-top: 5px;
-  display: block;
-  font-size: 12px;
-  color: #555;
-  font-weight: 100;
-  text-transform: lowercase;
-}
-
-.card h3 select.form-select {
-  width: 100px;
-  margin-right: 0;
-  margin-top: 5px;
-}
-
-.card h3 select.form-select.form-select--low {
-  background-color: #fff9cc;
-  color: #555;
-}
-
-.card h3 select.form-select.form-select--medium {
-  background-color: #ffe6b3;
-  color: #333;
-}
-
-.card h3 select.form-select.form-select--high {
-  background-color: #ffcc99;
-  color: #111;
-}
-
-.card h3 select.form-select.form-select--critical {
-  background-color: #ff9999;
-  color: #333;
-}
-
-.card p {
-  font-size: 16px;
-  padding: 5px 10px;
-}
+/* Removed card styles */
 
 .todo input,
 select {
@@ -285,10 +227,6 @@ select {
 
 .action-bar-left {
   display: flex;
-}
-
-.card .action-bar {
-  border-radius: 0px 0px 5px 5px;
 }
 
 .action-bar button {
